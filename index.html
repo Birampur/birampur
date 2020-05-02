@@ -45,6 +45,9 @@
   <link rel="stylesheet" href="css/leaflet-compass.css"/>
   <script src="js/leaflet-compass.js"></script>
 
+  <!-- load search from local directory -->
+  <link rel="stylesheet" href="css/leaflet-search.css">
+  <script src="js/leaflet-search.js"></script>
 
   <script>
     $(document).ready(function () {
@@ -84,12 +87,12 @@
       });
 
 
-       var baseMaps = {
-        "MapBD":birampur,
-        "OpenStreetMap": gimage,
-        "Google Map": rmap,
-        "Google Imagery": gmap
-        };
+       // var baseMaps = {
+       //  "MapBD":birampur,
+       //  "OpenStreetMap": gimage,
+       //  "Google Map": rmap,
+       //  "Google Imagery": gmap
+       //  };
 
 
       // var overlayMaps = {  
@@ -103,9 +106,14 @@
       // map.addLayer(smap);
 
 
+
+
+
+
+
       map.addControl( new L.Control.Compass({position: "topright"}) );
 
-      L.control.layers(baseMaps).addTo(map);
+      // L.control.layers(baseMaps).addTo(map);
 
       // L.Control.Compass({position: "bottomleft"});
     //Scale
@@ -126,6 +134,40 @@
   map.setMaxBounds([[25.29,88.83],[25.49,89.09]]);
 }
 setBounds();
+
+
+
+     L.marker([25.32, 88.93]).addTo(map);
+
+
+
+      //https://jsfiddle.net/sajjadgol/6qprq9z9/3/
+
+      // var shelter1 = L.marker([25.32, 88.90], {icon: shelterIcon});
+
+      // var shelterMarkers = new L.FeatureGroup();
+
+      // shelterMarkers.addLayer(shelter1);
+
+      // map.on('zoomend', function() {
+      //     if (map.getZoom() >13){
+      //             map.removeLayer(shelterMarkers);
+      //     }
+      //     else {
+      //             map.addLayer(shelterMarkers);
+      //         }
+      // });
+
+
+
+    //search options
+      // map.addControl(new L.Control.Search({
+      //       // layer: layer_OsmFile_3,
+      //       initial: false,
+      //       hideMarkerOnCollapse: true,
+      //       propertyName: 'name'}));
+      //   document.getElementsByClassName('search-button')[0].className +=
+      //    ' fa fa-binoculars';
 
 
 
