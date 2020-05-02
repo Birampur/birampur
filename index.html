@@ -36,6 +36,16 @@
   <script src="js/leaflet-hash.js"></script>
   <script src="js/L.Control.Locate.min.js"></script>
 <!--   <script src="js/OSMBuildings-Leaflet.js"></script> -->
+  
+  <!-- load Leaflet.SlideMenu from local directory -->
+  <link rel="stylesheet" href="css/L.Control.SlideMenu.css" />
+  <script src="js/L.Control.SlideMenu.js"></script>
+
+  <!-- load compass from local directory -->
+  <link rel="stylesheet" href="css/leaflet-compass.css"/>
+  <script src="js/leaflet-compass.js"></script>
+
+
   <script>
     $(document).ready(function () {
 
@@ -84,14 +94,19 @@
       // map.addLayer(smap);
 
 
+      map.addControl( new L.Control.Compass({position: "topright"}) );
 
       L.control.layers(baseMaps,overlayMaps).addTo(map);
 
-
+      // L.Control.Compass({position: "bottomleft"});
     //Scale
     L.control.scale().addTo(map);
 
     L.control.locate().addTo(map);
+
+    map.zoomControl.setPosition('bottomleft');
+
+
 
     //bound box
   var bounds_group = new L.featureGroup([]);
@@ -102,6 +117,25 @@
   map.setMaxBounds([[25.29,88.83],[25.49,89.09]]);
 }
 setBounds();
+
+
+    // slide menu contents and position
+  var contents = '<h4>Birampur Map</h4>';
+  contents += '<h5>Mobile-friendly web maps<br>with open-source templates</h5>';
+  contents += '<p>Link to <a href="https://github.com/JackDougherty/bikemapcode">code and instructions on GitHub</a></p>';
+  contents += '<img src="images/BikeMapCodeKey.png" alt="BikeMapCode key" width="196" height="299">';
+  contents += '<p>Distributed as-is with no warranty</p>';
+  contents += '<p>Stop your bike in a safe place before using</p>';
+  contents += '<p>Requires internet access to view maps and location</p>';
+  contents += '<p>Allow smartphone browser to show your location<br> - iPhone > Settings > Privacy > Location Services (On) > Safari (While Using)<br> - Android (to come)</p>';
+  contents += '<p>Click OK if browser asks permission to show your location</p>';
+  contents += '<img src="images/AllowCurrentLocation.png" alt="Allow Current Location screen" width="200" height="123">';
+  // contents += '<h5>Open Cycle Map layer legend</h5>';
+  // contents += '<img src="images/OpenCycleMapKey.png" alt="OpenCycleMap key" width="290" height="438">';
+  var slideMenu = L.control.slideMenu('', {position: 'topright', width: '300px',  height: '100%', delay: '1'}).addTo(map);
+  slideMenu.setContents(contents);
+
+
 
 
     })
