@@ -65,9 +65,18 @@
         attribution: ''
       });
 
+      var gmap =L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
+        maxZoom: 19,
+        minZoom: 12,
+        tms: false,
+        attribution: ''
+      });
+
+      
+
       // var smap = new OSMBuildings(map).load('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json');
 
-      var rmap =L.tileLayer('Tiles/{z}/{x}/{y}.png', {
+      var rmap =L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
         maxZoom: 19,
         minZoom: 12,
         tms: false,
@@ -79,24 +88,24 @@
         "MapBD":birampur,
         "OpenStreetMap": gimage,
         "Google Map": rmap,
-        // "Google Imagery": Esri_WorldImagery
+        "Google Imagery": gmap
         };
 
 
-      var overlayMaps = {  
-      "Road Map" : rmap,      
-        "3D Map" : birampur,
+      // var overlayMaps = {  
+      // "Road Map" : rmap,      
+      //   "3D Map" : birampur,
         
-        "Google Satellite images" : gimage
+      //   "Google Satellite images" : gimage
       
-      }
+      // }
 
       // map.addLayer(smap);
 
 
       map.addControl( new L.Control.Compass({position: "topright"}) );
 
-      L.control.layers(baseMaps,overlayMaps).addTo(map);
+      L.control.layers(baseMaps).addTo(map);
 
       // L.Control.Compass({position: "bottomleft"});
     //Scale
