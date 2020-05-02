@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Birampur</title>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="css/leaflet.css" />
+  <link href="css/L.Control.Locate.min.css" rel="stylesheet">
+  <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+  <style type="text/css">
+    body {
+            padding: 0;
+            margin: 0;
+        }
+        #map {
+            position:absolute;
+            z-index:0;
+            height: 100%;
+            width: 100%;
+        }
+        #mydive{
+          position:absolute;
+          z-index:1;
+          bottom: 0;
+          right: 0;
+          margin-bottom: 5px;
+          margin-right: 5px;
+        }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+  <script src="js/leaflet.js"></script>
+  <script src="js/leaflet-hash.js"></script>
+  <script src="js/L.Control.Locate.min.js"></script>
+<!--   <script src="js/OSMBuildings-Leaflet.js"></script> -->
+  <script>
+    $(document).ready(function () {
+
+      // This is the Carto Positron basemap
+      var map = L.map('map').setView([25.3921, 88.9546], 13);
+      var hash = new L.Hash(map);
+      var birampur = L.tileLayer('https://raw.githubusercontent.com/arahmandc/birampur/master/gameimage/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        minZoom: 12,
+        attribution:''
+      }).addTo(map);
+
+      var gimage =L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        minZoom: 12,
+        tms: false,
+        attribution: ''
+      });
+
+      // var smap = new OSMBuildings(map).load('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json');
+
+      var rmap =L.tileLayer('Tiles/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        minZoom: 12,
+        tms: false,
+        attribution: ''
+      });
+
+
+       var baseMaps = {
+        "MapBD":birampur,
+        "OpenStreetMap": gimage,
+        "Google Map": rmap,
+        // "Google Imagery": Esri_WorldImagery
+        };
+
+
+      var overlayMaps = {  
+      "Road Map" : rmap,      
+        "3D Map" : birampur,
+        
+        "Google Satellite images" : gimage
+      
+      }
+
+      // map.addLayer(smap);
+
+
+
+      L.control.layers(baseMaps,overlayMaps).addTo(map);
+
+
+    //Scale
+    L.control.scale().addTo(map);
+
+    L.control.locate().addTo(map);
+
+    //bound box
+  var bounds_group = new L.featureGroup([]);
+  function setBounds() {
+  if (bounds_group.getLayers().length) {
+    map.fitBounds(bounds_group.getBounds());
+  }
+  map.setMaxBounds([[25.29,88.83],[25.49,89.09]]);
+}
+setBounds();
+
+
+    })
+  </script>
+</head>
+<body style="background-color: #C8AE89">
+  <div id="map"></div>
+  <div id="mydive"><a href='https://mapbd.github.io' target='_blank'><img height='24px' src='images/mapbd.png'/></a></div> 
+      
+
+</body>
+</html>
