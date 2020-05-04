@@ -49,6 +49,9 @@
   <link rel="stylesheet" href="css/leaflet-search.css">
   <script src="js/leaflet-search.js"></script>
 
+   <!-- tring to add custom marker -->
+  <script src="js/custom_markar.js"></script>
+
   <script>
     $(document).ready(function () {
 
@@ -105,17 +108,12 @@
 
       // map.addLayer(smap);
 
-
-
-
-
-
-
       map.addControl( new L.Control.Compass({position: "topright"}) );
 
       // L.control.layers(baseMaps).addTo(map);
 
       // L.Control.Compass({position: "bottomleft"});
+
     //Scale
     L.control.scale().addTo(map);
 
@@ -123,6 +121,55 @@
 
     map.zoomControl.setPosition('bottomleft');
 
+
+      //marker test
+     L.marker([25.3903,88.9912]).addTo(map);
+
+      //marker test 1
+      var shelter1 = L.marker([25.3903,88.9910], {icon: healthIcon,title : 'test marker1',});
+
+      var shelterMarkers = new L.FeatureGroup();
+
+      shelterMarkers.addLayer(shelter1);
+
+      map.on('zoomend', function() {
+          if (map.getZoom()<14){
+                  map.removeLayer(shelterMarkers);
+          }
+          else {
+                  map.addLayer(shelterMarkers);
+              }
+      });
+
+    //marker test 2
+    //https://jsfiddle.net/sajjadgol/6qprq9z9/3/
+
+      var marker = L.marker([25.3903,88.9915],{
+                icon: teaIcon,
+                // draggable:true,
+                title : 'test marker2',
+            });
+
+            map.on('zoomend' , function (e) {
+                // var geo = map.getCenter();                
+                // console.log(map.getZoom());
+                if (map.getZoom()>13)
+                {
+                    // marker.setLatLng(geo);
+                    marker.addTo(map);
+                }else {
+                    marker.remove();
+                }
+            });
+
+ //search options
+      map.addControl(new L.Control.Search({
+            // layer: layer_OsmFile_3,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'name'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
 
 
     //bound box
@@ -137,44 +184,10 @@ setBounds();
 
 
 
-     L.marker([25.32, 88.93]).addTo(map);
-
-
-
-      //https://jsfiddle.net/sajjadgol/6qprq9z9/3/
-
-      // var shelter1 = L.marker([25.32, 88.90], {icon: shelterIcon});
-
-      // var shelterMarkers = new L.FeatureGroup();
-
-      // shelterMarkers.addLayer(shelter1);
-
-      // map.on('zoomend', function() {
-      //     if (map.getZoom() >13){
-      //             map.removeLayer(shelterMarkers);
-      //     }
-      //     else {
-      //             map.addLayer(shelterMarkers);
-      //         }
-      // });
-
-
-
-    //search options
-      // map.addControl(new L.Control.Search({
-      //       // layer: layer_OsmFile_3,
-      //       initial: false,
-      //       hideMarkerOnCollapse: true,
-      //       propertyName: 'name'}));
-      //   document.getElementsByClassName('search-button')[0].className +=
-      //    ' fa fa-binoculars';
-
-
-
-
     // slide menu contents and position
-  var contents = '<h4 style="text-align:center">Birampur Map</h4>';
-  contents += '<img src="images/favicon.ico" alt="BirampurMap" width="196" margin-left="70px">';
+
+  // var contents = '<h4 style="text-align:center">Birampur Map</h4>';
+  var contents = '<img src="images/bmap.png" alt="BirampurMap" width="300">';
   contents += '<h5>Mobile-friendly web maps<br>with importent location markers.</h5>';
   
   // contents += '<img src="images/BikeMapCodeKey.png" alt="BikeMapCode key" width="196" height="299">';
@@ -183,7 +196,7 @@ setBounds();
   contents += '<p>Requires internet access to view maps and location</p>';
   contents += '<p>Allow smartphone browser to show your location<br> Phone > Settings > Privacy > Location Services (On) > While Using<br></p>';
   contents += '<p>Click OK if browser asks permission to show your location</p>';
-  // contents += '<img src="images/AllowCurrentLocation.png" alt="Allow Current Location screen" width="200" height="123">';
+  contents += '<a href="#" ; target:"_blank"> <img src="images/birampurfb.png" alt="Facebook" width="300" height="120"> </a>';
   // contents += '<h5>Open Cycle Map layer legend</h5>';
   // contents += '<img src="images/OpenCycleMapKey.png" alt="OpenCycleMap key" width="290" height="438">';
   var slideMenu = L.control.slideMenu('', {position: 'topright', width: '300px',  height: '100%', delay: '1'}).addTo(map);
