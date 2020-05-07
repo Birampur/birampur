@@ -171,6 +171,7 @@ function getColor(type) {
 }
 
 map.addControl( new L.Control.Compass({position: "topright"}) );
+
 L.control.locate().addTo(map);
 
  //search options
