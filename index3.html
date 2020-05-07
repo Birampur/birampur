@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaflet web map with Google Sheets</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <script src="js/leaflet-hash.js"></script>
+  <script src="js/L.Control.Locate.min.js"></script>
+<!--   <script src="js/OSMBuildings-Leaflet.js"></script> -->
+  
+  <!-- load Leaflet.SlideMenu from local directory -->
+  <link rel="stylesheet" href="css/L.Control.SlideMenu.css" />
+  <script src="js/L.Control.SlideMenu.js"></script>
+
+  <!-- load compass from local directory -->
+  <link rel="stylesheet" href="css/leaflet-compass.css"/>
+  <script src="js/leaflet-compass.js"></script>
+
+  <!-- load search from local directory -->
+  <link rel="stylesheet" href="css/leaflet-search.css">
+  <script src="js/leaflet-search.js"></script>
+
+   <!-- tring to add custom marker -->
+  <script src="js/custom_markar.js"></script>
+
+    <link rel="stylesheet" href="css/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="css/leaflet-sidebar.css"/>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            position:absolute;
+            z-index:0;
+            height: 100%;
+            width: 100%;
+        }
+        #sidebar-content, #sidebar-title {
+            word-break: break-word;
+            margin-right: 40px;
+        }
+         #mydive{ 
+          position:absolute;
+          z-index:1;
+          bottom: 0;
+          right: 0;
+          margin-bottom: 5px;
+          margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div id="mydive"><a href='https://mapbd.github.io' target='_blank'><img height='24px' src='images/mapbd.png'/></a></div> 
+    <script src="js/leaflet.js"></script>
+    <script src="js/leaflet-sidebar.js"></script>
+    <script src="js/leaflet.awesome-markers.min.js"></script>
+    <script src="js/tabletop.min.js"></script>
+    <script src="leaflet-gsheets.js"></script>
+</body>
+</html>
