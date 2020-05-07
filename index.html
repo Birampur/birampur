@@ -162,6 +162,20 @@
                 }
             });
 
+      /**
+ * Returns different icon names depending on the string passed.
+ */
+function getIcon(type) {
+    switch (type) {
+        case "Bakery": return "birthday-cake";
+        case "Coffee shop": return "coffee";
+        case "Restaurant": return "cutlery";
+        case "Store": return "shopping-basket"; // orange-gold
+        case "Supermarket": return "shopping-cart"; // red
+        default: return "info"; // pink
+    }
+}
+
  //search options
       map.addControl(new L.Control.Search({
             // layer: layer_OsmFile_3,
