@@ -176,10 +176,10 @@ L.control.locate().addTo(map);
 
  //search options
       map.addControl(new L.Control.Search({
-            // layer: layer_OsmFile_3,
+            layer: pointGroupLayer, //
             initial: false,
             hideMarkerOnCollapse: true,
-            propertyName: 'name'}));
+            propertyName: 'Name'}));
         document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
 
@@ -196,7 +196,7 @@ L.control.locate().addTo(map);
   contents += '<p>Requires internet access to view maps and location</p>';
   contents += '<p>Allow smartphone browser to show your location<br> Phone > Settings > Privacy > Location Services (On) > While Using<br></p>';
   contents += '<p>Click OK if browser asks permission to show your location</p>';
-  contents += '<a href="#" ; target:"_blank"> <img src="images/birampurfb.png" alt="Facebook" width="300" height="120"> </a>';
+  contents += '<a href="https://www.facebook.com/groups/birampurmap" target:"_blank"> <img src="images/birampurfb.png" alt="Facebook" width="300" height="120"> </a>';
   // contents += '<h5>Open Cycle Map layer legend</h5>';
   // contents += '<img src="images/OpenCycleMapKey.png" alt="OpenCycleMap key" width="290" height="438">';
   var slideMenu = L.control.slideMenu('', {position: 'topright', width: '300px',  height: '100%', delay: '1'}).addTo(map);
