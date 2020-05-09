@@ -9,14 +9,14 @@ LS.Receive.Marker = {}
 LS.Receive.Popup = L.popup()
 var sendIcon = L.icon({
   iconUrl: "https://raw.githubusercontent.com/Birampur/birampur.github.io/master/images/placeholder.png",
-  iconSize:     [50, 50], // size of the icon
+  iconSize:     [25, 25], // size of the icon
   iconAnchor:   [25, 50], // point of the icon which will correspond to marker's location
   popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
 })
 
 receiveIcon = L.icon({
   iconUrl: "https://raw.githubusercontent.com/Birampur/birampur.github.io/master/images/MapReceive.png",
-  iconSize:     [50, 50], // size of the icon
+  iconSize:     [25, 25], // size of the icon
   iconAnchor:   [25, 50], // point of the icon which will correspond to marker's location
   popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
 })
@@ -93,7 +93,7 @@ function getJsonFromUrl () {
 
 
 function copyPrompt() {
-  window.prompt("Send this location with: Ctrl+C, Enter", '' + 
+  window.prompt("Copy this location", '' + 
                 location.origin + location.pathname + '?' + 
                 'lat' + '=' + LS.Send.lat + '&' +
                 'lng' + '=' + LS.Send.lng + '&' +
