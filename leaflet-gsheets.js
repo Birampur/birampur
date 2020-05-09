@@ -172,7 +172,7 @@ function getColor(type) {
   }
 }
 
-map.addControl( new L.Control.Compass({position: "topright"}) );
+map.addControl( new L.Control.Compass({position: "topright", title: "Compass"}) );
 
 L.control.locate().addTo(map);
 
