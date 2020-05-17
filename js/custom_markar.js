@@ -9,9 +9,21 @@
  */
 
 var healthIcon = L.icon({
-    iconUrl: 'images/helth.bmp',
+    iconUrl: 'images/helth.png',
+    iconSize: [38, 95],
 });
 
 var teaIcon = L.icon({
-    iconUrl: 'images/tea.bmp',
+    iconUrl: 'images/tea.png',
+    iconSize: [38, 95],
+});
+
+var teaaIcon = L.icon({
+    iconUrl: 'images/tea.png',
+    iconSize: [38, 95],
+});
+
+var teabIcon = L.icon({
+    iconUrl: 'images/tea.png',
+    iconSize: [38, 95],
 });

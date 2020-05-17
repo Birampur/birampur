@@ -58,27 +58,18 @@ map.zoomControl.setPosition('bottomleft');
 }
 setBounds();
 
-// var sidebar = L.control
-//   .sidebar({
-//     container: "sidebar",
-//     closeButton: true,
-//     position: "right"
-//   })
-//   .addTo(map);
 
-// let panelID = "my-info-panel";
-// var panelContent = {
-//   id: panelID,
-//   tab: "<i class='fa fa-bars active'></i>",
-//   pane: "<p id='sidebar-content'></p>",
-//   title: "<h2 id='sidebar-title'>No state selected</h2>"
-// };
-// sidebar.addPanel(panelContent);
 
 
 // These are declared outisde the functions so that the functions can check if they already exist
 
 var pointGroupLayer;
+
+
+var geojsonStates = {
+    'type': 'FeatureCollection',
+    'features': []
+  };
 
 
 
@@ -95,23 +86,29 @@ function addPoints(data) {
   // marker: standard point with an icon
   // circleMarker: a circle with a radius set in pixels
   // circle: a circle with a radius set in meters
-  var markerType = "marker";
+  
+  // var markerType = "marker";
 
   // Marker radius
   // Wil be in pixels for circleMarker, metres for circle
   // Ignore for point
-  var markerRadius = 100;
+
+  // var markerRadius = 100;
 
   for (var row = 0; row < data.length; row++) {
-    var marker;
-    if (markerType == "circleMarker") {
-      marker = L.circleMarker([data[row].lat, data[row].lon], {radius: markerRadius});
-    } else if (markerType == "circle") {
-      marker = L.circle([data[row].lat, data[row].lon], {radius: markerRadius});
-    } else {
-      marker = L.marker([data[row].lat, data[row].long]);
-    }
-    marker.addTo(pointGroupLayer);
+
+    var marker = L.marker([data[row].lat, data[row].long]).addTo(pointGroupLayer);
+
+
+    // var marker;
+    // if (markerType == "circleMarker") {
+    //   marker = L.circleMarker([data[row].lat, data[row].lon], {radius: markerRadius});
+    // } else if (markerType == "circle") {
+    //   marker = L.circle([data[row].lat, data[row].lon], {radius: markerRadius});
+    // } else {
+    //   marker = L.marker([data[row].lat, data[row].long]);
+    // }
+    // marker.addTo(pointGroupLayer);
 
 
     // UNCOMMENT THIS LINE TO USE POPUPS
@@ -123,6 +120,7 @@ function addPoints(data) {
         Name: data[row].Name,
         lat: data[row].lat,
         long: data[row].long,
+        group: data[row].group,
         category: data[row].category
       }
     };
@@ -131,6 +129,7 @@ function addPoints(data) {
         L.DomEvent.stopPropagation(e);
 
         
+
         // document.getElementById("sidebar-title").innerHTML =
         //   e.target.feature.properties.location;
         // document.getElementById("sidebar-content").innerHTML =
@@ -145,32 +144,56 @@ function addPoints(data) {
     });
 
 
+
+
     // AwesomeMarkers is used to create fancier icons
     var icon = L.AwesomeMarkers.icon({
-      icon: "info-sign",
-      iconColor: "white",
-      markerColor: getColor(data[row].category),
-      prefix: "glyphicon",
-      extraClasses: "fa-rotate-0"
+      // icon: "info-sign",
+      icon: getIcon(data[row].group),
+      // iconColor: "white",
+      // markerColor: getColor(data[row].category),
+      // prefix: "glyphicon",
+      // extraClasses: "fa-rotate-0"
     });
-    if (!markerType.includes("circle")) {
-      marker.setIcon(icon);
-    }
+    // if (!markerType.includes("cercle")) {
+    //   marker.setIcon(icon);
+    // }
+    marker.setIcon(icon);
   }
 }
 
 // Returns different colors depending on the string passed
 // Used for the points layer
-function getColor(type) {
+// function getColor(type) {
+//   switch (type) {
+//   case "Coffee Shop":
+//     return "green";
+//   case "Restaurant":
+//     return "blue";
+//   default:
+//     return "green";
+//   }
+// }
+
+// Used for the points icon
+function getIcon(type) {
   switch (type) {
-  case "Coffee Shop":
-    return "green";
-  case "Restaurant":
-    return "blue";
+  case "amunitya":
+    return "healthIcon";
+  case "amunityb":
+    return "info-sign";
+  // case "amunitycc";
+  //   return "teaaIcon";
+  // case "amunityd";
+  //   return "teabIcon";
   default:
-    return "green";
+    return "teaIcon";
   }
 }
+
+
+
+
 
 map.addControl( new L.Control.Compass({position: "topright", title: "Compass"}) );
 
@@ -181,9 +204,16 @@ L.control.locate().addTo(map);
             layer: pointGroupLayer, //
             initial: false,
             hideMarkerOnCollapse: true,
-            propertyName: 'Name'}));
+            propertyName: 'name'}));
         document.getElementsByClassName('search-button')[0].className +=
-         ' fa fa-binoculars';
+         '';
+
+
+
+
+
+
+
 
 
     // slide menu contents and position
