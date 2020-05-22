@@ -8,8 +8,8 @@
  * 
  */
 
-var healthIcon = L.icon({
-    iconUrl: 'images/helth.png',
+var airplane-outline = L.icon({
+    iconUrl: 'images/airplane-outline.svg',
     iconSize: [38, 95],
 });
 

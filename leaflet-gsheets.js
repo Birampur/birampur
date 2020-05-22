@@ -1,15 +1,6 @@
-/* global L Tabletop */
 
-/*
- * Script to display two tables from Google Sheets as point and polygon layers using Leaflet
- * The Sheets are then imported using Tabletop.js and overwrite the initially laded layers
- */
-
-// init() is called as soon as the page loads
 function init() {
-  // PASTE YOUR URLs HERE
-  // these URLs come from Google Sheets 'shareable link' form
-  // the first is the polygon layer and the second the points
+
   var pointsURL =
     "https://docs.google.com/spreadsheets/d/12Pzc3r2SvfQvTBFy6JuSBfVzBK714rmzTeI8vO_Hiw8/edit?usp=sharing";
 
@@ -19,12 +10,11 @@ window.addEventListener("DOMContentLoaded", init);
 
 
 
-// Create a new Leaflet map centered on the continental US
 var map = L.map("map").setView([25.3921, 88.9546], 13);
 
 var hash = new L.Hash(map);
 
-// This is the Carto Positron basemap
+
 var basemap = L.tileLayer(
   "https://raw.githubusercontent.com/arahmandc/birampur/master/gameimage/{z}/{x}/{y}.png",
   {
@@ -39,7 +29,7 @@ basemap.addTo(map);
 
 
 
-//Scale
+
 L.control.scale().addTo(map);
 
 
@@ -48,7 +38,7 @@ map.zoomControl.setPosition('bottomleft');
 
 
 
-        //bound box
+
   var bounds_group = new L.featureGroup([]);
   function setBounds() {
   if (bounds_group.getLayers().length) {
@@ -61,61 +51,34 @@ setBounds();
 
 
 
-// These are declared outisde the functions so that the functions can check if they already exist
 
 var pointGroupLayer;
 
 
-var geojsonStates = {
+var geojson = {
     'type': 'FeatureCollection',
     'features': []
   };
 
 
 
-// addPoints is a bit simpler, as no GeoJSON is needed for the points
-// It does the same check to overwrite the existing points layer once the Google Sheets data comes along
+
 function addPoints(data) {
   if (pointGroupLayer != null) {
     pointGroupLayer.remove();
   }
   pointGroupLayer = L.layerGroup().addTo(map);
 
-  // Choose marker type. Options are:
-  // (these are case-sensitive, defaults to marker!)
-  // marker: standard point with an icon
-  // circleMarker: a circle with a radius set in pixels
-  // circle: a circle with a radius set in meters
-  
-  // var markerType = "marker";
 
-  // Marker radius
-  // Wil be in pixels for circleMarker, metres for circle
-  // Ignore for point
-
-  // var markerRadius = 100;
 
   for (var row = 0; row < data.length; row++) {
 
     var marker = L.marker([data[row].lat, data[row].long]).addTo(pointGroupLayer);
 
 
-    // var marker;
-    // if (markerType == "circleMarker") {
-    //   marker = L.circleMarker([data[row].lat, data[row].lon], {radius: markerRadius});
-    // } else if (markerType == "circle") {
-    //   marker = L.circle([data[row].lat, data[row].lon], {radius: markerRadius});
-    // } else {
-    //   marker = L.marker([data[row].lat, data[row].long]);
-    // }
-    // marker.addTo(pointGroupLayer);
+    marker.bindPopup('<b style="text-align:center">'+ data[row].Name +'</b><br> <b>Operator:</b>'+data[row].group +'<br><b>Address:</b>'+data[row].group +'<br><b>Contact Number:</b>'+data[row].group);
 
-
-    // UNCOMMENT THIS LINE TO USE POPUPS
-    //marker.bindPopup('<h2>' + data[row].location + '</h2>There's a ' + data[row].level + ' ' + data[row].category + ' here');
-
-    // COMMENT THE NEXT 14 LINES TO DISABLE SIDEBAR FOR THE MARKERS
-    marker.feature = {
+    marker.feature ={
       properties: {
         Name: data[row].Name,
         lat: data[row].lat,
@@ -126,71 +89,47 @@ function addPoints(data) {
     };
     marker.on({
       click: function(e) {
-        L.DomEvent.stopPropagation(e);
-
-        
-
-        // document.getElementById("sidebar-title").innerHTML =
-        //   e.target.feature.properties.location;
-        // document.getElementById("sidebar-content").innerHTML =
-        //   e.target.feature.properties.category;
-        // sidebar.open(panelID);
-    //      var html =("<h3>"+feature.properties.Name+"</h3>");
-    // layer.bindPopup(html);
-        
+        L.DomEvent.stopPropagation(e);  
       }
-
-
     });
 
 
 
 
-    // AwesomeMarkers is used to create fancier icons
     var icon = L.AwesomeMarkers.icon({
-      // icon: "info-sign",
-      icon: getIcon(data[row].group),
-      // iconColor: "white",
-      // markerColor: getColor(data[row].category),
-      // prefix: "glyphicon",
-      // extraClasses: "fa-rotate-0"
+      icon: getIcon(data[row].category),
+      iconColor: "white",
+      markerColor: getColor(data[row].category),
+      prefix: "fa",
     });
-    // if (!markerType.includes("cercle")) {
-    //   marker.setIcon(icon);
-    // }
     marker.setIcon(icon);
   }
 }
 
-// Returns different colors depending on the string passed
-// Used for the points layer
-// function getColor(type) {
-//   switch (type) {
-//   case "Coffee Shop":
-//     return "green";
-//   case "Restaurant":
-//     return "blue";
-//   default:
-//     return "green";
-//   }
-// }
+
+function getColor(type) {
+    switch (type) {
+        case "Bakery": return "blue";
+        case "Coffee shop": return "green";
+        case "Restaurant": return "cadetblue";
+        case "Store": return "orange"; // orange-gold
+        case "Supermarket": return "red"; // red
+        default: return "purple"; // pink
+    }
+}
 
 // Used for the points icon
 function getIcon(type) {
-  switch (type) {
-  case "amunitya":
-    return "healthIcon";
-  case "amunityb":
-    return "info-sign";
-  // case "amunitycc";
-  //   return "teaaIcon";
-  // case "amunityd";
-  //   return "teabIcon";
-  default:
-    return "teaIcon";
-  }
+    switch (type) {
+        case "Bakery": return "birthday-cake";
+        case "Coffee shop": return "coffee";
+        case "Restaurant": return "cutlery";
+        case "Store": return "shopping-basket"; // orange-gold
+        case "Supermarket": return "shopping-cart"; // red
+        case "Hospital": return "mosque";
+        default: return "info"; // pink
+    }
 }
-
 
 
 
@@ -204,7 +143,7 @@ L.control.locate().addTo(map);
             layer: pointGroupLayer, //
             initial: false,
             hideMarkerOnCollapse: true,
-            propertyName: 'name'}));
+            propertyName: 'data[row].name'}));
         document.getElementsByClassName('search-button')[0].className +=
          '';
 
