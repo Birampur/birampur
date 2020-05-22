@@ -132,7 +132,24 @@ function getIcon(type) {
 }
 
 
-
+map.on('zoomend', function() {
+var zoomlevel = map.getZoom();
+    if (zoomlevel  <16){
+        if (map.hasLayer(pointGroupLayer)) {
+            map.removeLayer(pointGroupLayer);
+        } else {
+            console.log("no point layer active");
+        }
+    }
+    if (zoomlevel >= 16){
+        if (map.hasLayer(pointGroupLayer)){
+            console.log("layer already added");
+        } else {
+            map.addLayer(pointGroupLayer);
+        }
+    }
+console.log("Current Zoom Level =" + zoomlevel)
+});
 
 map.addControl( new L.Control.Compass({position: "topright", title: "Compass"}) );
 
