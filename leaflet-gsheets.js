@@ -69,6 +69,25 @@ function addPoints(data) {
   }
   pointGroupLayer = L.layerGroup().addTo(map);
 
+  map.on('zoomend', function() {
+var zoomlevel = map.getZoom();
+    if (zoomlevel  <16){
+        if (map.hasLayer(pointGroupLayer)) {
+            map.removeLayer(pointGroupLayer);
+        } else {
+            console.log("no point layer active");
+        }
+    }
+    if (zoomlevel >= 16){
+        if (map.hasLayer(pointGroupLayer)){
+            console.log("layer already added");
+        } else {
+            map.addLayer(pointGroupLayer);
+        }
+    }
+console.log("Current Zoom Level =" + zoomlevel)
+});
+
 
 
   for (var row = 0; row < data.length; row++) {
@@ -114,6 +133,20 @@ function getColor(type) {
         case "Restaurant": return "cadetblue";
         case "Store": return "orange"; // orange-gold
         case "Supermarket": return "red"; // red
+        //new
+        case "education": return "red";
+        case "health": return "red";
+        case "pharmacy": return "red";
+        case "doctors": return "red";
+        case "training_center": return "red";
+        case "bank": return "red";
+        case "courier": return "red";
+        case "fuel": return "red";
+        case "atm": return "red";
+        // case "": return "red";
+        // case "": return "red";
+        // case "": return "red";
+
         default: return "purple"; // pink
     }
 }
@@ -127,29 +160,26 @@ function getIcon(type) {
         case "Store": return "shopping-basket"; // orange-gold
         case "Supermarket": return "shopping-cart"; // red
         case "Hospital": return "mosque";
+        //new
+        case "education": return "graduation-cap"; //graduation-cap
+        case "health": return "h-square";
+        case "pharmacy": return "fa-medkit";
+        case "doctors": return "stethoscope";
+        case "training_center": return "";
+        case "bank": return "";
+        case "courier": return "send";
+        case "fuel": return "";
+        case "atm": return "";
+        // case "": return "";
+        // case "": return "";
+        // case "": return "";
+
         default: return "info"; // pink
     }
 }
 
 
-map.on('zoomend', function() {
-var zoomlevel = map.getZoom();
-    if (zoomlevel  <16){
-        if (map.hasLayer(pointGroupLayer)) {
-            map.removeLayer(pointGroupLayer);
-        } else {
-            console.log("no point layer active");
-        }
-    }
-    if (zoomlevel >= 16){
-        if (map.hasLayer(pointGroupLayer)){
-            console.log("layer already added");
-        } else {
-            map.addLayer(pointGroupLayer);
-        }
-    }
-console.log("Current Zoom Level =" + zoomlevel)
-});
+
 
 map.addControl( new L.Control.Compass({position: "topright", title: "Compass"}) );
 
