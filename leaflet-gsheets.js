@@ -128,6 +128,11 @@ console.log("Current Zoom Level =" + zoomlevel)
   // Add search control after data loading is complete.
   add_search_control();
 
+  // Don't show markers if current zoom < 16.
+  if (map.getZoom() < 16 && map.hasLayer(pointGroupLayer)) {
+    map.removeLayer(pointGroupLayer);
+  }
+
 }
 
 
