@@ -1,3 +1,4 @@
+"use strict";
 
 function init() {
 
@@ -123,6 +124,10 @@ console.log("Current Zoom Level =" + zoomlevel)
     });
     marker.setIcon(icon);
   }
+
+  // Add search control after data loading is complete.
+  add_search_control();
+
 }
 
 
@@ -185,14 +190,16 @@ map.addControl( new L.Control.Compass({position: "topright", title: "Compass"}) 
 
 L.control.locate().addTo(map);
 
+let add_search_control = function () {
  //search options
       map.addControl(new L.Control.Search({
             layer: pointGroupLayer, //
             initial: false,
             hideMarkerOnCollapse: true,
-            propertyName: 'data[row].name'}));
+            propertyName: 'Name'}));
         document.getElementsByClassName('search-button')[0].className +=
          '';
+}
 
 
 
