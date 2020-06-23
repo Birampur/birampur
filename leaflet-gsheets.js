@@ -51,9 +51,31 @@ setBounds();
 
 
 
+var pointGroupLayers = [];
 
 
-var pointGroupLayer;
+
+// Predefined list of categories. To be used to match indexes for the
+// "pointGroupLayers" array.
+// There must be at least one POI for every category listed here. Otherwise,
+// the "featureGroup" creation for Leaflet Search will throw errors.
+let categories = [
+  // "Bakery",
+  // "Coffee shop",
+  // "Restaurant",
+  // "Store",
+  // "Supermarket",
+  "education",
+  "health",
+  "pharmacy",
+  // "doctors",
+  "training_center",
+  "bank",
+  "courier",
+  // "fuel",
+  "atm",
+];
+
 
 
 var geojson = {
@@ -63,38 +85,83 @@ var geojson = {
 
 
 
-
-function addPoints(data) {
-  if (pointGroupLayer != null) {
-    pointGroupLayer.remove();
+// Match with the "categories" array, and add the corresponding layer to
+// the map.
+// The function parameter must exactly match a value from the "categories"
+// array.
+let add_layer = function (category) {
+  let index = categories.indexOf(category);
+  if (index > -1) {
+    map.addLayer(pointGroupLayers[index]);
   }
-  pointGroupLayer = L.layerGroup().addTo(map);
+}
 
-  map.on('zoomend', function() {
-var zoomlevel = map.getZoom();
-    if (zoomlevel  <16){
-        if (map.hasLayer(pointGroupLayer)) {
-            map.removeLayer(pointGroupLayer);
-        } else {
-            console.log("no point layer active");
-        }
-    }
-    if (zoomlevel >= 16){
-        if (map.hasLayer(pointGroupLayer)){
-            console.log("layer already added");
-        } else {
-            map.addLayer(pointGroupLayer);
-        }
-    }
-console.log("Current Zoom Level =" + zoomlevel)
+
+
+// Remove all existing layers from the map.
+let remove_all_layers = function () {
+  pointGroupLayers.forEach(function (layer) {
+    map.hasLayer(layer) && map.removeLayer(layer);
+  });
+}
+
+
+
+// Add appropriate layer(s) based on passed zoom level.
+// The parameter (layer name) that is passed to the "add_layer()" function
+// must exactly match a value from the "categories" array.
+let add_layer_for_zoom = function (zoom_level) {
+
+  if (zoom_level > 15) {
+    add_layer("education");
+    add_layer("pharmacy");
+  }
+
+  if (zoom_level == 12) {
+    add_layer("education");
+    add_layer("health");
+  } else if (zoom_level == 13) {
+    add_layer("pharmacy");
+  } else if (zoom_level == 14) {
+    add_layer("training_center");
+  } else if (zoom_level == 15) {
+    add_layer("bank");
+    add_layer("courier");
+  } else {
+    add_layer("atm");
+  }
+
+}
+
+
+
+// Show different layers at different zoom levels.
+map.on("zoomend", function () {
+  remove_all_layers();
+  add_layer_for_zoom( map.getZoom() );
 });
 
 
 
+function addPoints(data) {
+
+  if (pointGroupLayers.length) {
+    remove_all_layers();
+  }
+
   for (var row = 0; row < data.length; row++) {
 
-    var marker = L.marker([data[row].lat, data[row].long]).addTo(pointGroupLayer);
+    var marker = L.marker([data[row].lat, data[row].long]);
 
+    // Add each marker to its corresponding category layer. (Create if layer
+    // does not exist.)
+    let index = categories.indexOf(data[row].category);
+    if (index > -1) {
+      if (!pointGroupLayers[index]) {
+        pointGroupLayers[index] = L.layerGroup().addTo(map);
+      }
+      marker.addTo(pointGroupLayers[index]);
+    }
 
     marker.bindPopup('<b style="text-align:center">'+ data[row].Name +'</b><br> <b>Operator:</b>'+data[row].group +'<br><b>Address:</b>'+data[row].group +'<br><b>Contact Number:</b>'+data[row].group);
 
@@ -113,14 +180,23 @@ console.log("Current Zoom Level =" + zoomlevel)
       }
     });
 
+    // Get different icon URLs based on category.
+    let get_icon_url = function (category) {
+      return category === "education" ? "images/custom-icon-1.png"
+        : category === "health" ? "images/custom-icon-2.png"
+        : category === "pharmacy" ? "images/custom-icon-3.png"
+        : category === "bank" ? "images/custom-icon-4.png"
+        : "images/custom-icon.png";
+    }
 
-
-
-    var icon = L.AwesomeMarkers.icon({
-      icon: getIcon(data[row].category),
-      iconColor: "white",
-      markerColor: getColor(data[row].category),
-      prefix: "fa",
+    var icon = L.icon({
+      iconUrl: get_icon_url(data[row].category),
+      // shadowUrl: 'custom-icon-shadow.png',
+      // iconSize:     [38, 95], // size of the icon
+      // shadowSize:   [50, 64], // size of the shadow
+      // iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+      // shadowAnchor: [4, 62],  // the same for the shadow
+      popupAnchor:  [20, 0] // point from which the popup should open relative to the iconAnchor
     });
     marker.setIcon(icon);
   }
@@ -128,59 +204,10 @@ console.log("Current Zoom Level =" + zoomlevel)
   // Add search control after data loading is complete.
   add_search_control();
 
-}
+  // Only show the layer(s) corresponding to the current zoom level.
+  remove_all_layers();
+  add_layer_for_zoom( map.getZoom() );
 
-
-function getColor(type) {
-    switch (type) {
-        case "Bakery": return "blue";
-        case "Coffee shop": return "green";
-        case "Restaurant": return "cadetblue";
-        case "Store": return "orange"; // orange-gold
-        case "Supermarket": return "red"; // red
-        //new
-        case "education": return "red";
-        case "health": return "red";
-        case "pharmacy": return "red";
-        case "doctors": return "red";
-        case "training_center": return "red";
-        case "bank": return "red";
-        case "courier": return "red";
-        case "fuel": return "red";
-        case "atm": return "red";
-        // case "": return "red";
-        // case "": return "red";
-        // case "": return "red";
-
-        default: return "purple"; // pink
-    }
-}
-
-// Used for the points icon
-function getIcon(type) {
-    switch (type) {
-        case "Bakery": return "birthday-cake";
-        case "Coffee shop": return "coffee";
-        case "Restaurant": return "cutlery";
-        case "Store": return "shopping-basket"; // orange-gold
-        case "Supermarket": return "shopping-cart"; // red
-        case "Hospital": return "mosque";
-        //new
-        case "education": return "graduation-cap"; //graduation-cap
-        case "health": return "h-square";
-        case "pharmacy": return "fa-medkit";
-        case "doctors": return "stethoscope";
-        case "training_center": return "";
-        case "bank": return "";
-        case "courier": return "send";
-        case "fuel": return "";
-        case "atm": return "";
-        // case "": return "";
-        // case "": return "";
-        // case "": return "";
-
-        default: return "info"; // pink
-    }
 }
 
 
@@ -193,7 +220,7 @@ L.control.locate().addTo(map);
 let add_search_control = function () {
  //search options
       map.addControl(new L.Control.Search({
-            layer: pointGroupLayer, //
+            layer: L.featureGroup(pointGroupLayers),    // Create "featureGroup" to pass array of layers
             initial: false,
             hideMarkerOnCollapse: true,
             propertyName: 'Name'}));
