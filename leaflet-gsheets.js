@@ -180,14 +180,23 @@ function addPoints(data) {
       }
     });
 
+    // Get different icon URLs based on category.
+    let get_icon_url = function (category) {
+      return category === "education" ? "images/custom-icon-1.png"
+        : category === "health" ? "images/custom-icon-2.png"
+        : category === "pharmacy" ? "images/custom-icon-3.png"
+        : category === "bank" ? "images/custom-icon-4.png"
+        : "images/custom-icon.png";
+    }
 
-
-
-    var icon = L.AwesomeMarkers.icon({
-      icon: getIcon(data[row].category),
-      iconColor: "white",
-      markerColor: getColor(data[row].category),
-      prefix: "fa",
+    var icon = L.icon({
+      iconUrl: get_icon_url(data[row].category),
+      // shadowUrl: 'custom-icon-shadow.png',
+      // iconSize:     [38, 95], // size of the icon
+      // shadowSize:   [50, 64], // size of the shadow
+      // iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+      // shadowAnchor: [4, 62],  // the same for the shadow
+      popupAnchor:  [20, 0] // point from which the popup should open relative to the iconAnchor
     });
     marker.setIcon(icon);
   }
@@ -224,33 +233,6 @@ function getColor(type) {
         // case "": return "red";
 
         default: return "purple"; // pink
-    }
-}
-
-// Used for the points icon
-function getIcon(type) {
-    switch (type) {
-        case "Bakery": return "birthday-cake";
-        case "Coffee shop": return "coffee";
-        case "Restaurant": return "cutlery";
-        case "Store": return "shopping-basket"; // orange-gold
-        case "Supermarket": return "shopping-cart"; // red
-        case "Hospital": return "mosque";
-        //new
-        case "education": return "graduation-cap"; //graduation-cap
-        case "health": return "h-square";
-        case "pharmacy": return "fa-medkit";
-        case "doctors": return "stethoscope";
-        case "training_center": return "";
-        case "bank": return "";
-        case "courier": return "send";
-        case "fuel": return "";
-        case "atm": return "";
-        // case "": return "";
-        // case "": return "";
-        // case "": return "";
-
-        default: return "info"; // pink
     }
 }
 
