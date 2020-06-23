@@ -51,9 +51,31 @@ setBounds();
 
 
 
+var pointGroupLayers = [];
 
 
-var pointGroupLayer;
+
+// Predefined list of categories. To be used to match indexes for the
+// "pointGroupLayers" array.
+// There must be at least one POI for every category listed here. Otherwise,
+// the "featureGroup" creation for Leaflet Search will throw errors.
+let categories = [
+  // "Bakery",
+  // "Coffee shop",
+  // "Restaurant",
+  // "Store",
+  // "Supermarket",
+  "education",
+  "health",
+  "pharmacy",
+  // "doctors",
+  "training_center",
+  "bank",
+  "courier",
+  // "fuel",
+  "atm",
+];
+
 
 
 var geojson = {
@@ -63,38 +85,81 @@ var geojson = {
 
 
 
-
-function addPoints(data) {
-  if (pointGroupLayer != null) {
-    pointGroupLayer.remove();
+// Match with the "categories" array, and add the corresponding layer to
+// the map.
+// The function parameter must exactly match a value from the "categories"
+// array.
+let add_layer = function (category) {
+  let index = categories.indexOf(category);
+  if (index > -1) {
+    map.addLayer(pointGroupLayers[index]);
   }
-  pointGroupLayer = L.layerGroup().addTo(map);
+}
 
-  map.on('zoomend', function() {
-var zoomlevel = map.getZoom();
-    if (zoomlevel  <16){
-        if (map.hasLayer(pointGroupLayer)) {
-            map.removeLayer(pointGroupLayer);
-        } else {
-            console.log("no point layer active");
-        }
-    }
-    if (zoomlevel >= 16){
-        if (map.hasLayer(pointGroupLayer)){
-            console.log("layer already added");
-        } else {
-            map.addLayer(pointGroupLayer);
-        }
-    }
-console.log("Current Zoom Level =" + zoomlevel)
+
+
+// Remove all existing layers from the map.
+let remove_all_layers = function () {
+  pointGroupLayers.forEach(function (layer) {
+    map.hasLayer(layer) && map.removeLayer(layer);
+  });
+}
+
+
+
+// Add appropriate layer(s) based on passed zoom level.
+// The parameter (layer name) that is passed to the "add_layer()" function
+// must exactly match a value from the "categories" array.
+let add_layer_for_zoom = function (zoom_level) {
+  switch (zoom_level) {
+    case 12:
+      add_layer("education");
+      add_layer("health");
+      break;
+    case 13:
+      add_layer("pharmacy");
+      break;
+    case 14:
+      add_layer("training_center");
+      break;
+    case 15:
+      add_layer("bank");
+      add_layer("courier");
+      break;
+    default:
+      add_layer("atm");
+  }
+}
+
+
+
+// Show different layers at different zoom levels.
+map.on("zoomend", function () {
+  remove_all_layers();
+  add_layer_for_zoom( map.getZoom() );
 });
 
 
 
+function addPoints(data) {
+
+  if (pointGroupLayers.length) {
+    remove_all_layers();
+  }
+
   for (var row = 0; row < data.length; row++) {
 
-    var marker = L.marker([data[row].lat, data[row].long]).addTo(pointGroupLayer);
+    var marker = L.marker([data[row].lat, data[row].long]);
 
+    // Add each marker to its corresponding category layer. (Create if layer
+    // does not exist.)
+    let index = categories.indexOf(data[row].category);
+    if (index > -1) {
+      if (!pointGroupLayers[index]) {
+        pointGroupLayers[index] = L.layerGroup().addTo(map);
+      }
+      marker.addTo(pointGroupLayers[index]);
+    }
 
     marker.bindPopup('<b style="text-align:center">'+ data[row].Name +'</b><br> <b>Operator:</b>'+data[row].group +'<br><b>Address:</b>'+data[row].group +'<br><b>Contact Number:</b>'+data[row].group);
 
@@ -128,10 +193,9 @@ console.log("Current Zoom Level =" + zoomlevel)
   // Add search control after data loading is complete.
   add_search_control();
 
-  // Don't show markers if current zoom < 16.
-  if (map.getZoom() < 16 && map.hasLayer(pointGroupLayer)) {
-    map.removeLayer(pointGroupLayer);
-  }
+  // Only show the layer(s) corresponding to the current zoom level.
+  remove_all_layers();
+  add_layer_for_zoom( map.getZoom() );
 
 }
 
@@ -198,7 +262,7 @@ L.control.locate().addTo(map);
 let add_search_control = function () {
  //search options
       map.addControl(new L.Control.Search({
-            layer: pointGroupLayer, //
+            layer: L.featureGroup(pointGroupLayers),    // Create "featureGroup" to pass array of layers
             initial: false,
             hideMarkerOnCollapse: true,
             propertyName: 'Name'}));
