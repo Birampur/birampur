@@ -111,6 +111,12 @@ let remove_all_layers = function () {
 // The parameter (layer name) that is passed to the "add_layer()" function
 // must exactly match a value from the "categories" array.
 let add_layer_for_zoom = function (zoom_level) {
+
+  if (zoom_level > 15) {
+    add_layer("education");
+    add_layer("pharmacy");
+  }
+
   if (zoom_level == 12) {
     add_layer("education");
     add_layer("health");
@@ -124,6 +130,7 @@ let add_layer_for_zoom = function (zoom_level) {
   } else {
     add_layer("atm");
   }
+
 }
 
 
