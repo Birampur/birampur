@@ -111,23 +111,18 @@ let remove_all_layers = function () {
 // The parameter (layer name) that is passed to the "add_layer()" function
 // must exactly match a value from the "categories" array.
 let add_layer_for_zoom = function (zoom_level) {
-  switch (zoom_level) {
-    case 12:
-      add_layer("education");
-      add_layer("health");
-      break;
-    case 13:
-      add_layer("pharmacy");
-      break;
-    case 14:
-      add_layer("training_center");
-      break;
-    case 15:
-      add_layer("bank");
-      add_layer("courier");
-      break;
-    default:
-      add_layer("atm");
+  if (zoom_level == 12) {
+    add_layer("education");
+    add_layer("health");
+  } else if (zoom_level == 13) {
+    add_layer("pharmacy");
+  } else if (zoom_level == 14) {
+    add_layer("training_center");
+  } else if (zoom_level == 15) {
+    add_layer("bank");
+    add_layer("courier");
+  } else {
+    add_layer("atm");
   }
 }
 
