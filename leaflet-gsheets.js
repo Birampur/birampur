@@ -211,32 +211,6 @@ function addPoints(data) {
 }
 
 
-function getColor(type) {
-    switch (type) {
-        case "Bakery": return "blue";
-        case "Coffee shop": return "green";
-        case "Restaurant": return "cadetblue";
-        case "Store": return "orange"; // orange-gold
-        case "Supermarket": return "red"; // red
-        //new
-        case "education": return "red";
-        case "health": return "red";
-        case "pharmacy": return "red";
-        case "doctors": return "red";
-        case "training_center": return "red";
-        case "bank": return "red";
-        case "courier": return "red";
-        case "fuel": return "red";
-        case "atm": return "red";
-        // case "": return "red";
-        // case "": return "red";
-        // case "": return "red";
-
-        default: return "purple"; // pink
-    }
-}
-
-
 
 
 map.addControl( new L.Control.Compass({position: "topright", title: "Compass"}) );
