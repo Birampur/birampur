@@ -74,14 +74,6 @@ let categories = [
   "mosque",
   "bank",
   "courier",
-  "place",
-  "police",
-  "walton",
-  "post",
-  "oppo",
-  "bkash",
-  "dental",
-  "mondir",
   // "fuel",
   "atm",
 ];
@@ -122,64 +114,26 @@ let remove_all_layers = function () {
 // must exactly match a value from the "categories" array.
 let add_layer_for_zoom = function (zoom_level) {
 
-  // if (zoom_level > 15) {
-  //   add_layer("college");
-  //   add_layer("school");
-  //   add_layer("pharmacy");
-  // }
-  // if (zoom_level > 14){
-  //   add_layer("mosque");
-  // }
-  // if (zoom_level == 12) {
-  //   // add_layer("education");
-  //   add_layer("health");
-  // } else if (zoom_level == 13) {
-  //   add_layer("pharmacy");
-  // } else if (zoom_level == 14) {
-  //   add_layer("training_center");
-  // } else if (zoom_level == 15) {
-  //   add_layer("bank");
-  //   add_layer("atm");
-  //   add_layer("courier");
-
-  if (zoom_level > 11){
-    add_layer("mosque");
-    add_layer("mondir");
-    add_layer("place");
-  }
-  if (zoom_level > 12){
+  if (zoom_level > 15) {
+    add_layer("college");
+    add_layer("school");
     add_layer("pharmacy");
-    add_layer("health");
-    add_layer("dental");
-  }
-  if (zoom_level > 13){
-    add_layer("");
   }
   if (zoom_level > 14){
-    add_layer("school");
-    add_layer("college");
-    add_layer("police");
-    add_layer("post");
+    add_layer("mosque");
   }
-  if (zoom_level > 15){
+  if (zoom_level == 12) {
+    // add_layer("education");
+    add_layer("health");
+  } else if (zoom_level == 13) {
+    add_layer("pharmacy");
+  } else if (zoom_level == 14) {
+    add_layer("training_center");
+  } else if (zoom_level == 15) {
     add_layer("bank");
     add_layer("atm");
-  }
-  if (zoom_level > 16){
-    add_layer("");
-  } 
-  if (zoom_level > 17){
-    add_layer("");
     add_layer("courier");
-  }
-  if (zoom_level > 18){
-    add_layer("bkash");
-    add_layer("oppo");
-    add_layer("walton");
-  }
-  if (zoom_level == 19){
-    add_layer("shop");
-  }else {
+  } else {
     add_layer("mosque");
   }
 
@@ -240,17 +194,6 @@ function addPoints(data) {
         : category === "pharmacy" ? "images/ic/pharmacy.png"
         : category === "bank" ? "images/ic/bank.png"
         : category === "mosque" ? "images/ic/mosque.png"
-        : category === "mondir" ? "images/ic/mondir.png"
-        : category === "place" ? "images/ic/place.png"
-        : category === "post" ? "images/ic/post.png"
-        : category === "police" ? "images/ic/police.png"
-        : category === "walton" ? "images/ic/walton.png"
-        : category === "oppo" ? "images/ic/oppo.png"
-        : category === "bkash" ? "images/ic/bkash.png"
-        : category === "dental" ? "images/ic/dental.png"
-        : category === "gp" ? "images/ic/gp.png"
-        : category === "bl" ? "images/ic/bl.png"
-        : category === "samsung" ? "images/ic/samsung.png"
         : "images/ic/atm.png";
     }
 
