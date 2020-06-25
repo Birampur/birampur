@@ -82,7 +82,11 @@ let categories = [
   "bkash",
   "dental",
   "mondir",
-  // "fuel",
+  "gp",
+  "tea",
+  "hotel",
+  "restaurant",
+  "fuel",
   "atm",
 ];
 
@@ -169,13 +173,17 @@ let add_layer_for_zoom = function (zoom_level) {
     add_layer("");
   } 
   if (zoom_level > 17){
-    add_layer("");
+    add_layer("hotel");
     add_layer("courier");
+    add_layer("fuel");
   }
   if (zoom_level > 18){
     add_layer("bkash");
+    add_layer("gp");
     add_layer("oppo");
     add_layer("walton");
+    add_layer("tea");
+    add_layer("restaurant");
   }
   if (zoom_level == 19){
     add_layer("shop");
@@ -215,8 +223,8 @@ function addPoints(data) {
       marker.addTo(pointGroupLayers[index]);
     }
 
-    marker.bindPopup('<b style="text-align:center">'+ data[row].Name +'</b><br> <b>Operator:</b>'+data[row].group +'<br><b>Address:</b>'+data[row].group +'<br><b>Contact Number:</b>'+data[row].group);
-
+    //marker.bindPopup('<b style="text-align:center">'+ data[row].Name +'</b><br> <b>Operator:</b>'+data[row].group +'<br><b>Address:</b>'+data[row].group +'<br><b>Contact Number:</b>'+data[row].group);
+    marker.bindPopup('<b style="text-align:center">'+ data[row].Name);
     marker.feature ={
       properties: {
         Name: data[row].Name,
@@ -242,15 +250,20 @@ function addPoints(data) {
         : category === "mosque" ? "images/ic/mosque.png"
         : category === "mondir" ? "images/ic/mondir.png"
         : category === "place" ? "images/ic/place.png"
-        : category === "post" ? "images/ic/post.png"
+        : category === "post" ? "images/ic/mailbox.png"
         : category === "police" ? "images/ic/police.png"
         : category === "walton" ? "images/ic/walton.png"
         : category === "oppo" ? "images/ic/oppo.png"
         : category === "bkash" ? "images/ic/bkash.png"
-        : category === "dental" ? "images/ic/dental.png"
+        : category === "dental" ? "images/ic/dentist.png"
         : category === "gp" ? "images/ic/gp.png"
         : category === "bl" ? "images/ic/bl.png"
         : category === "samsung" ? "images/ic/samsung.png"
+        : category === "courier" ? "images/ic/send.png"
+        : category === "tea" ? "images/ic/tea.png"
+        : category === "hotel" ? "images/ic/hotel.png"
+        : category === "restaurant" ? "images/ic/restaurant.png"
+        : category === "fuel" ? "images/ic/fuel.png"
         : "images/ic/atm.png";
     }
 
