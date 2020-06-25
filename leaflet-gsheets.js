@@ -330,8 +330,6 @@ function addPoints(data) {
 }
 
 
-
-
 map.addControl( new L.Control.Compass({position: "topright", title: "Compass"}) );
 
 L.control.locate().addTo(map);
@@ -347,31 +345,18 @@ let add_search_control = function () {
          '';
 }
 
-
-
-
-
-
-
-
-
     // slide menu contents and position
-
-  // var contents = '<h4 style="text-align:center">Birampur Map</h4>';
-  var contents = '<img src="images/bmap.png" alt="BirampurMap" width="300">';
+  var contents = '<img src="images/bbmap.png" alt="BirampurMap">';
   contents += '<h2 style="text-align:center">Birampur Map</h2>';
   contents += '<h5 style="text-align:center">Web maps with importent location markers.</h5>';
-  
-  
-  // contents += '<img src="images/BikeMapCodeKey.png" alt="BikeMapCode key" width="196" height="299">'; Mobile-friendly web maps <br>with importent location markers.
-  // contents += '<p>Distributed as-is with no warranty</p>';
-  // contents += '<p>Stop your bike in a safe place before using</p>';
-  contents += '<p>Requires internet access to view maps and location</p>';
-  contents += '<p>Allow smartphone browser to show your location<br> Phone > Settings > Privacy > Location Services (On) > While Using<br></p>';
-  contents += '<p>Click OK if browser asks permission to show your location</p>';
-  contents += '<a href="https://www.facebook.com/groups/birampurmap" target:"_blank"> <img src="images/birampurfb.png" alt="Facebook" width="300" height="90"> </a>';
-  // contents += '<h5>Open Cycle Map layer legend</h5>';
-  // contents += '<img src="images/OpenCycleMapKey.png" alt="OpenCycleMap key" width="290" height="438">';
+  contents += '<br><p style="text-align:justify">Birampur Maps is a web mapping service developed by <a href="https://mapbd.github.io" target="_blank">MapBD</a>. It offers digital maps, importent local POI views. This Map Based on <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>. Mainly useing Leaflet Js for developing this platform. This maps requires internet access to view maps and location. </p>';
+  contents += '<p><b>Slide Menu</b></p>';
+  contents += '<img src="images/about.jpg" alt="Birampur Map">';
+  contents += '<br><p><b>For access My Location and Compass</b></p>';
+  contents += '<p>Allow smartphone browser to show your location<br> Phone > Settings > Privacy > Location Services (On) > While Using<br>Click OK if browser asks permission to show your location</p>';
+  contents += '<p><b>Facebook Group</b></p>';
+  contents += '<p>Any type of information or suggestion please knock us on facebook.</p>';
+  contents += '<a href="https://www.facebook.com/groups/birampurmap" target="_blank"> <img src="images/birampurfb.png" alt="Facebook" width="300" height="90"> </a>';
   var slideMenu = L.control.slideMenu('', {position: 'topright', width: '300px',  height: '100%', delay: '1'}).addTo(map);
   slideMenu.setContents(contents);
 
