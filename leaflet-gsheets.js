@@ -88,6 +88,7 @@ let categories = [
   "restaurant",
   "fuel",
   "atm",
+  "fire",
 ];
 
 
@@ -168,6 +169,7 @@ let add_layer_for_zoom = function (zoom_level) {
   if (zoom_level > 15){
     add_layer("bank");
     add_layer("atm");
+    add_layer("fire");
   }
   if (zoom_level > 16){
     add_layer("");
@@ -264,6 +266,7 @@ function addPoints(data) {
         : category === "hotel" ? "images/ic/hotel.png"
         : category === "restaurant" ? "images/ic/restaurant.png"
         : category === "fuel" ? "images/ic/fuel.png"
+        : category === "fire" ? "images/ic/fire.png"
         : "images/ic/atm.png";
     }
 
