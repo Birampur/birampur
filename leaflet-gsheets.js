@@ -89,6 +89,19 @@ let categories = [
   "fuel",
   "atm",
   "fire",
+  "huawei",
+  "cloth",
+  "shoe",
+  "singer",
+  "square",
+  "homeo",
+  // "bus",
+  "busc",
+  "akai",
+  "train",
+  "government",
+  "cinema",
+  "railget",
 ];
 
 
@@ -153,12 +166,17 @@ let add_layer_for_zoom = function (zoom_level) {
     add_layer("place");
   }
   if (zoom_level > 12){
+    add_layer("homeo");
     add_layer("pharmacy");
     add_layer("health");
     add_layer("dental");
   }
   if (zoom_level > 13){
-    add_layer("");
+    // add_layer("bus");
+    add_layer("busc");
+    add_layer("train");
+    add_layer("government");
+    add_layer("railget");
   }
   if (zoom_level > 14){
     add_layer("school");
@@ -170,6 +188,7 @@ let add_layer_for_zoom = function (zoom_level) {
     add_layer("bank");
     add_layer("atm");
     add_layer("fire");
+    add_layer("cinema");
   }
   if (zoom_level > 16){
     add_layer("");
@@ -180,6 +199,12 @@ let add_layer_for_zoom = function (zoom_level) {
     add_layer("fuel");
   }
   if (zoom_level > 18){
+    add_layer("akai");
+    add_layer("huawei");
+    add_layer("singer");
+    add_layer("shoe");
+    add_layer("cloth");
+    add_layer("square");
     add_layer("bkash");
     add_layer("gp");
     add_layer("oppo");
@@ -267,13 +292,26 @@ function addPoints(data) {
         : category === "restaurant" ? "images/ic/restaurant.png"
         : category === "fuel" ? "images/ic/fuel.png"
         : category === "fire" ? "images/ic/fire.png"
+        : category === "shoe" ? "images/ic/shoe.png"
+        : category === "cloth" ? "images/ic/cloth.png"
+        : category === "singer" ? "images/ic/singer.png"
+        : category === "huawei" ? "images/ic/huawei.png"
+        : category === "square" ? "images/ic/square.png"
+        : category === "homeo" ? "images/ic/homeo.png"
+        : category === "akai" ? "images/ic/akai.png"
+        // : category === "bus" ? "images/ic/bus1.png"
+        : category === "busc" ? "images/ic/bus2.png"
+        : category === "train" ? "images/ic/train.png"
+        : category === "government" ? "images/ic/government.png"
+        : category === "cinema" ? "images/ic/theater.png"
+        : category === "railget" ? "images/ic/traffic-sign.png" 
         : "images/ic/atm.png";
     }
 
     var icon = L.icon({
       iconUrl: get_icon_url(data[row].category),
       // shadowUrl: 'custom-icon-shadow.png',
-      // iconSize:     [38, 95], // size of the icon
+      iconSize:     [16, 16], // size of the icon
       // shadowSize:   [50, 64], // size of the shadow
       // iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
       // shadowAnchor: [4, 62],  // the same for the shadow
@@ -321,15 +359,17 @@ let add_search_control = function () {
 
   // var contents = '<h4 style="text-align:center">Birampur Map</h4>';
   var contents = '<img src="images/bmap.png" alt="BirampurMap" width="300">';
-  contents += '<h5>Mobile-friendly web maps<br>with importent location markers.</h5>';
+  contents += '<h2 style="text-align:center">Birampur Map</h2>';
+  contents += '<h5 style="text-align:center">Web maps with importent location markers.</h5>';
   
-  // contents += '<img src="images/BikeMapCodeKey.png" alt="BikeMapCode key" width="196" height="299">';
+  
+  // contents += '<img src="images/BikeMapCodeKey.png" alt="BikeMapCode key" width="196" height="299">'; Mobile-friendly web maps <br>with importent location markers.
   // contents += '<p>Distributed as-is with no warranty</p>';
   // contents += '<p>Stop your bike in a safe place before using</p>';
   contents += '<p>Requires internet access to view maps and location</p>';
   contents += '<p>Allow smartphone browser to show your location<br> Phone > Settings > Privacy > Location Services (On) > While Using<br></p>';
   contents += '<p>Click OK if browser asks permission to show your location</p>';
-  contents += '<a href="https://www.facebook.com/groups/birampurmap" target:"_blank"> <img src="images/birampurfb.png" alt="Facebook" width="300" height="120"> </a>';
+  contents += '<a href="https://www.facebook.com/groups/birampurmap" target:"_blank"> <img src="images/birampurfb.png" alt="Facebook" width="300" height="90"> </a>';
   // contents += '<h5>Open Cycle Map layer legend</h5>';
   // contents += '<img src="images/OpenCycleMapKey.png" alt="OpenCycleMap key" width="290" height="438">';
   var slideMenu = L.control.slideMenu('', {position: 'topright', width: '300px',  height: '100%', delay: '1'}).addTo(map);

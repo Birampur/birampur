@@ -93,7 +93,7 @@ function getJsonFromUrl () {
 
 
 function copyPrompt() {
-  window.prompt("Copy this location", '' + 
+  window.prompt("Copy this Text & Send it", '' + 
                 location.origin + location.pathname + '?' + 
                 'lat' + '=' + LS.Send.lat + '&' +
                 'lng' + '=' + LS.Send.lng + '&' +
