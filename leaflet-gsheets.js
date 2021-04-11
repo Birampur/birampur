@@ -104,7 +104,7 @@ let categories = [
   "railget",
   //11/04/2021 update
   "electronic",
-  "electric",
+  // "electric",
   "mobile",
   "general",
   "hardware",
@@ -222,7 +222,7 @@ let add_layer_for_zoom = function (zoom_level) {
     add_layer("tea");
     add_layer("restaurant");
     //11/04/2021 update
-    add_layer("electric");
+    // add_layer("electric");
     add_layer("mobile");
     add_layer("mobile_recharge");
     add_layer("mobile_phone");
@@ -329,12 +329,12 @@ function addPoints(data) {
         : category === "mobile" ? "images/ic/phone.png"
         : category === "mobile_phone" ? "images/ic/phone.png"
         : category === "mobile_recharge" ? "images/ic/phone.png"
-        : category === "electronic" ? "images/ic/theater.png"
-        : category === "electric" ? "images/ic/traffic-sign.png"
-        : category === "general" ? "images/ic/train.png"
-        : category === "hardware" ? "images/ic/government.png"
-        : category === "cosmetics" ? "images/ic/theater.png"
-        : category === "tailor_shop" ? "images/ic/traffic-sign.png" 
+        : category === "electronic" ? "images/ic/electronic.png"
+        // : category === "electric" ? "images/ic/traffic-sign.png"
+        : category === "general" ? "images/ic/general.png"
+        : category === "hardware" ? "images/ic/hardware.png"
+        : category === "cosmetics" ? "images/ic/cosmetics.png"
+        : category === "tailor_shop" ? "images/ic/tailor_shop.png" 
         : "images/ic/atm.png";
     }
 
