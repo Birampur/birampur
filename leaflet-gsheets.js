@@ -102,6 +102,16 @@ let categories = [
   "government",
   "cinema",
   "railget",
+  //11/04/2021 update
+  "electronic",
+  "electric",
+  "mobile",
+  "general",
+  "hardware",
+  "cosmetics",
+  "tailor_shop",
+  "mobile_phone",
+  "mobile_recharge",
 ];
 
 
@@ -211,6 +221,16 @@ let add_layer_for_zoom = function (zoom_level) {
     add_layer("walton");
     add_layer("tea");
     add_layer("restaurant");
+    //11/04/2021 update
+    add_layer("electric");
+    add_layer("mobile");
+    add_layer("mobile_recharge");
+    add_layer("mobile_phone");
+    add_layer("tailor_shop");
+    add_layer("cosmetics");
+    add_layer("hardware");
+    add_layer("general");
+    add_layer("electronic");
   }
   if (zoom_level == 19){
     add_layer("shop");
@@ -305,6 +325,16 @@ function addPoints(data) {
         : category === "government" ? "images/ic/government.png"
         : category === "cinema" ? "images/ic/theater.png"
         : category === "railget" ? "images/ic/traffic-sign.png" 
+        //11/04/2021 update
+        : category === "mobile" ? "images/ic/phone.png"
+        : category === "mobile_phone" ? "images/ic/phone.png"
+        : category === "mobile_recharge" ? "images/ic/phone.png"
+        : category === "electronic" ? "images/ic/theater.png"
+        : category === "electric" ? "images/ic/traffic-sign.png"
+        : category === "general" ? "images/ic/train.png"
+        : category === "hardware" ? "images/ic/government.png"
+        : category === "cosmetics" ? "images/ic/theater.png"
+        : category === "tailor_shop" ? "images/ic/traffic-sign.png" 
         : "images/ic/atm.png";
     }
 
