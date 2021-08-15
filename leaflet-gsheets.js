@@ -207,12 +207,17 @@ let add_layer_for_zoom = function (zoom_level) {
   if (zoom_level > 16){
     add_layer("");
   } 
+//   if (zoom_level > 17){
+//     add_layer("hotel");
+//     add_layer("courier");
+//     add_layer("fuel");
+//   }
   if (zoom_level > 17){
     add_layer("hotel");
     add_layer("courier");
     add_layer("fuel");
-  }
-  if (zoom_level > 18){
+    
+    
     add_layer("akai");
     add_layer("huawei");
     add_layer("singer");
