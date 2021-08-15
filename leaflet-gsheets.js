@@ -16,11 +16,12 @@ var map = L.map("map").setView([25.3921, 88.9546], 13);
 var hash = new L.Hash(map);
 
 
-// https://raw.githubusercontent.com/Birampur/tille-a/main/10/765/436.png
+// https://raw.githubusercontent.com/Birampur/tile-a/main/{z}/{x}/{y}.png
 // https://raw.githubusercontent.com/birampur/master/gameimage/{z}/{x}/{y}.png
+// https://raw.githubusercontent.com/mapbd/dhaka/main/gtiles/
 
 var basemap = L.tileLayer(
-  "https://raw.githubusercontent.com/Birampur/main/tile-a/{z}/{x}/{y}.png",
+  "https://raw.githubusercontent.com/Birampur/tile-a/main/{z}/{x}/{y}.png",
   {
     attribution:"",
     subdomains: "abcd",
