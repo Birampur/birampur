@@ -20,7 +20,7 @@ var hash = new L.Hash(map);
 // https://raw.githubusercontent.com/birampur/master/gameimage/{z}/{x}/{y}.png
 
 var basemap = L.tileLayer(
-  "https://raw.githubusercontent.com/Birampur/tille-a/{z}/{x}/{y}.png",
+  "https://raw.githubusercontent.com/Birampur/master/tile-a/{z}/{x}/{y}.png",
   {
     attribution:"",
     subdomains: "abcd",
