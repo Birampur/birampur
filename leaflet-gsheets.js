@@ -26,7 +26,7 @@ var basemap = L.tileLayer(
     attribution:"",
     subdomains: "abcd",
     maxZoom: 18,
-    minZoom: 1
+    minZoom: 12
   }
 );
 
