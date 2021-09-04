@@ -16,12 +16,16 @@ var map = L.map("map").setView([25.3921, 88.9546], 13);
 var hash = new L.Hash(map);
 
 
+// https://raw.githubusercontent.com/Birampur/tile-a/main/{z}/{x}/{y}.png
+// https://raw.githubusercontent.com/birampur/master/gameimage/{z}/{x}/{y}.png
+// https://raw.githubusercontent.com/mapbd/dhaka/main/gtiles/
+
 var basemap = L.tileLayer(
-  "https://raw.githubusercontent.com/arahmandc/birampur/master/gameimage/{z}/{x}/{y}.png",
+  "https://raw.githubusercontent.com/Birampur/tile-a/main/{z}/{x}/{y}.png",
   {
     attribution:"",
     subdomains: "abcd",
-    maxZoom: 19,
+    maxZoom: 18,
     minZoom: 12
   }
 );
@@ -203,12 +207,17 @@ let add_layer_for_zoom = function (zoom_level) {
   if (zoom_level > 16){
     add_layer("");
   } 
+//   if (zoom_level > 17){
+//     add_layer("hotel");
+//     add_layer("courier");
+//     add_layer("fuel");
+//   }
   if (zoom_level > 17){
     add_layer("hotel");
     add_layer("courier");
     add_layer("fuel");
-  }
-  if (zoom_level > 18){
+    
+    
     add_layer("akai");
     add_layer("huawei");
     add_layer("singer");
