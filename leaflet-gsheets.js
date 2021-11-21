@@ -5,9 +5,37 @@ function init() {
   var pointsURL =
     "https://docs.google.com/spreadsheets/d/12Pzc3r2SvfQvTBFy6JuSBfVzBK714rmzTeI8vO_Hiw8/edit?usp=sharing";
 
-  Tabletop.init({ key: pointsURL, callback: addPoints, simpleSheet: true }); // simpleSheet assumes there is only one table and automatically sends its data
+  Tabletop.init({ key: pointsURL, callback: addPoints, simpleSheet: true }); 
+  // simpleSheet assumes there is only one table and automatically sends its data
+
+
+//   var pointsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSQUT3kax0pP16j5T2E7yG8kiHZ5Q2rwHCg8A5EFJrzMybSHk2dyDNii4k6FQl92i-j_HX-KfgwvIWN/pub?output=csv';
+
+//       Papa.parse.init({key:pointsURL, complete: addPoints });
+
+//       // function init() {
+//       //   Papa.parse(pointsURL, {
+//       //     download: true,
+//       //     header: true,
+//       //     complete: function(addPoints){
+//       //       var data = addPoints.data
+
+//       //     }
+//       //   })
+//       // }
 }
-window.addEventListener("DOMContentLoaded", init);
+window.addEventListener("DOMContentLoaded", init)
+
+
+// function init() {
+//   Tabletop.init( {
+//     key: 'https://docs.google.com/spreadsheets/d/12Pzc3r2SvfQvTBFy6JuSBfVzBK714rmzTeI8vO_Hiw8/edit?usp=sharing',
+//     simpleSheet: true }
+//   ).then(function(addPoints, tabletop) { 
+//     console.log(data)
+//   })
+// }
+// window.addEventListener('DOMContentLoaded', init)
 
 
 
@@ -372,6 +400,11 @@ function addPoints(data) {
 map.addControl( new L.Control.Compass({position: "topright", title: "Compass"}) );
 
 L.control.locate().addTo(map);
+
+L.easyButton( 'fa fa-exchange', function(){
+  // alert('you just clicked the html entity \&starf;');
+  location.href = "routing/index.html";
+}).setPosition('topright').addTo(map);
 
 let add_search_control = function () {
  //search options
